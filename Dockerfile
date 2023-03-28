@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine3.9
+FROM php:8.1.0alpha3-fpm-alpine
 RUN apk add --no-cache openssl bash nodejs npm postgresql-dev
 RUN docker-php-ext-install bcmath pdo pdo_pgsql
 
@@ -14,6 +14,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY . /var/www
 
 RUN chmod -R 777 /var/www/storage
+RUN chmod -R 777 /var/www/storage/logs
+RUN chmod -R 777 /var/www/storage/framework
+RUN chmod -R 777 /var/www/bootstrap
 
 EXPOSE 9000
 
