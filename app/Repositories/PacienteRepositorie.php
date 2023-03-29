@@ -8,6 +8,9 @@ class PacienteRepositorie{
 
     private $model;
 
+    protected $cpf = null;
+    protected $nome = null;
+
 
     public function __construct(Pacientes $model)
     {
@@ -22,6 +25,21 @@ class PacienteRepositorie{
     public function getPacienteById($id)
     {
         return $this->model->find($id);
+    }
+
+    public function getPacienteByCpfOrNome($cpf = '', $nome = '')
+    {
+        $this->cpf = $cpf;
+        $this->nome = $nome;
+        return $this->model->where(function($query){
+            if($this->cpf){
+                $query->where('cpf', $this->cpf);
+            }
+
+            if($this-> nome){
+                $query->where('nome', 'like', '%' . $this->nome . '%');
+            }
+        })->first();
     }
 
     public function savePaciente($paciente)
@@ -51,6 +69,12 @@ class PacienteRepositorie{
 
     public function deletePaciente($id)
     {
+        return $this->model->find($id)->delete();
+    }
+
+    public function deletePacienteEndereco($id)
+    {
+        $this->model->find($id)->endereco->delete();
         return $this->model->find($id)->delete();
     }
 
