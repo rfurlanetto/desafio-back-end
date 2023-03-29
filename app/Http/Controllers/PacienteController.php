@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\PacienteService;
+use App\Services\PacienteEnderecoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class PacienteController extends Controller
 {
@@ -142,5 +144,93 @@ class PacienteController extends Controller
             Log::error($th);
             return response()->json('Ocorreu um problema na solicitação!');
         }
+    }
+
+    public function deletePacienteEndereco($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            if(!$id){
+                throw new \Exception('Campo ID necessário para a exclusão');
+            }
+            $this->pacienteService->deletePacienteEndereco($id);
+            DB::commit();
+            return response()->json(['return' => 'Paciente excluido com sucesso!']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+            Log::error($th);
+            return response()->json('Ocorreu um problema na solicitação!');
+        }
+    }
+
+    public function getPaciente($cpf = null, $nome = null)
+    {
+        try {
+            DB::beginTransaction();
+
+            if(!$cpf && !$cpf){
+                throw new \Exception('Campo ID necessário para a exclusão');
+            }
+            $paciente = $this->pacienteService->getPacienteByCpfOrNome($cpf, $nome);
+            DB::commit();
+            return response()->json(['paciente' => $paciente, 'endereco' => $paciente->endereco]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+            Log::error($th);
+            return response()->json('Ocorreu um problema na solicitação!');
+        }
+    }
+
+    public function savePacienteLote(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $file = $request->file('pacientes');
+            $csvData = file_get_contents($file);
+            $rows = array_map("str_getcsv", explode("\n", $csvData));
+            $header = array_shift($rows);
+            foreach ($rows as $key => $row) {
+                if($row[0]){
+                    $row = array_combine($header, $row);
+                    $arrayPaciente = [
+                        "nome" => $row['nome'],
+                        "nome_mae" => $row['nome_mae'],
+                        "nome_pai" => $row['nome_pai'],
+                        "data_nascimento" => $row['data_nascimento'],
+                        "cpf" => $row['cpf'],
+                        "cns" => $row['cns'],
+                        "endereco" => [
+                            "logradouro" => $row['logradouro'],
+                            "numero" => $row['numero'],
+                            "bairro" => $row['bairro'],
+                            "cep" => $row['cep'],
+                            "cidade" => $row['cidade'],
+                            "uf" => $row['uf'],
+                            "complemento" => $row['complemento'],
+                        ]
+                    ];
+    
+                    $validateSavePaciente = $this->pacienteService->validateSavePaciente($arrayPaciente);
+    
+                    if(!$validateSavePaciente && !is_array($validateSavePaciente)){
+                        return response()->json($validateSavePaciente);
+                    }
+                    $this->pacienteService->savePaciente($arrayPaciente);
+                }
+                
+            }
+            DB::commit();
+            return response()->json(['return' => 'Pacientes cadastrados com sucesso!']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+            Log::error($th);
+            return response()->json('Ocorreu um problema na solicitação!');
+        }
+
     }
 }

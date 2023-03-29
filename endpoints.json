@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "9f74997c-0a6c-4edc-9a2c-e803a4fbe2c3",
+		"name": "desafio-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetPacientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/pacientes/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pacientes",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPacientesByCpfOrNome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/pacientes/getPaciente/02941738037/Renê",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pacientes",
+						"getPaciente",
+						"02941738037",
+						"Renê"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCepViaCep",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/viaCep/getCep/08230000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"viaCep",
+						"getCep",
+						"08230000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SavePaciente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Renê Furlanetto\",\n    \"nome_mae\": \"Margarete Furlanetto\",\n    \"nome_pai\": \"Adair dos Santos\",\n    \"data_nascimento\": \"1993-03-31\",\n    \"cpf\": \"02941738037\",\n    \"cns\": \"242932056560003\",\n    \"endereco\": {\n        \"logradouro\": \"Av. Pe. Gregório Mafra\",\n        \"numero\": \"41\",\n        \"bairro\": \"Vila Taquari\",\n        \"cep\": \"08230000\",\n        \"cidade\": \"São Paulo\",\n        \"uf\": \"SP\",\n        \"complemento\": \"Casa Amarela\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pacientes/savePaciente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pacientes",
+						"savePaciente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SavePacienteLote",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "pacientes",
+							"type": "file",
+							"src": "/home/owl_developer/Área de Trabalho/pacientes.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pacientes/savePacienteLote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pacientes",
+						"savePacienteLote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePaciente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Renê Furlanetto222\",\n    \"nome_mae\": \"Margarete Furlanetto\",\n    \"nome_pai\": \"Adair dos Santos\",\n    \"data_nascimento\": \"1993-03-31\",\n    \"cpf\": \"02941738037\",\n    \"cns\": \"242932056560003\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pacientes/updatePaciente/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pacientes",
+						"updatePaciente",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePaciente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Renê Furlanetto222\",\n    \"nome_mae\": \"Margarete Furlanetto\",\n    \"nome_pai\": \"Adair dos Santos\",\n    \"data_nascimento\": \"1993-03-31\",\n    \"cpf\": \"02941738037\",\n    \"cns\": \"242932056560003\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pacientes/deletePaciente/21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pacientes",
+						"deletePaciente",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViaCep",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "viacep.com.br/ws/08230000/json/",
+					"host": [
+						"viacep",
+						"com",
+						"br"
+					],
+					"path": [
+						"ws",
+						"08230000",
+						"json",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

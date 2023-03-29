@@ -15,6 +15,7 @@ class CreateTablePacienteEndereco extends Migration
     {
         Schema::create('paciente_enderecos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pacientes_id')->constrained('pacientes');
             $table->string('logradouro');
             $table->string('numero');
             $table->string('bairro');
