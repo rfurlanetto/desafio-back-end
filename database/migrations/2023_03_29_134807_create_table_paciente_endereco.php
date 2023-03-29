@@ -13,7 +13,7 @@ class CreateTablePacienteEndereco extends Migration
      */
     public function up()
     {
-        Schema::create('paciente_endereco', function (Blueprint $table) {
+        Schema::create('paciente_enderecos', function (Blueprint $table) {
             $table->id();
             $table->string('logradouro');
             $table->string('numero');

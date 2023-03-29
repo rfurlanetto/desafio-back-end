@@ -9,7 +9,7 @@
 
 ## Checklist Desafio
 
-- [] Utilizar migration, factory, faker e seeder.
+- [X] Utilizar migration, factory, faker e seeder.
 
 - [] Desenvolver uma listagem de pacientes com busca, do qual deve-se permitir a adição, edição, visualização e exclusão de cada um dos pacientes.
 

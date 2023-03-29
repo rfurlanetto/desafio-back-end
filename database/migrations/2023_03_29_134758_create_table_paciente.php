@@ -13,11 +13,11 @@ class CreateTablePaciente extends Migration
      */
     public function up()
     {
-        Schema::create('paciente', function (Blueprint $table) {
+        Schema::create('pacientes', function (Blueprint $table) {
             $table->id();
-            $table->strign('nome');
-            $table->strign('nome_mae');
-            $table->strign('nome_pai');
+            $table->string('nome');
+            $table->string('nome_mae');
+            $table->string('nome_pai');
             $table->date('data_nascimento');
             $table->string('cpf');
             $table->string('cns');
