@@ -33,8 +33,11 @@ services:
     image: postgres:12.0-alpine
     restart: always
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: blog
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=clinica
+    ports:
+      - '5432:5432'
     volumes:
       - type: bind
         source: ./docker/dbdata
